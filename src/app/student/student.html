@@ -1,0 +1,41 @@
+<h1>Students List</h1>
+
+<form (ngSubmit)="addStudent()">
+  <input type="text" placeholder="Name" [(ngModel)]="student.name" name="name"/>
+
+  <input type="number" placeholder="Age" [(ngModel)]="student.age" name="age" />
+
+  <input type="email" placeholder="Email" [(ngModel)]="student.email" name="email" />
+
+  <input type="text" placeholder="Course" [(ngModel)]="student.course" name="course" />
+
+  <input type="date" [(ngModel)]="student.AdmissionDate" name="AdmissionDate" />
+
+  <button type="submit">Add Student</button>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Email</th>
+      <th>Course</th>
+      <th>Admission Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (student of students; track student.id) {
+      <tr>
+        <td>{{ student.id }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.age }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.course }}</td>
+        <td>{{ student.AdmissionDate }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
