@@ -18,4 +18,12 @@ export class StudentService {
     return this.http.post<StudentModel>('https://localhost:7229/api/Students', student);
   }
 
+  updateStudent(student: StudentModel): Observable<StudentModel> {
+    return this.http.put<StudentModel>(`https://localhost:7229/api/Students/${student.id}`, student);
+  }
+
+  deleteStudent(id: number): Observable<void> {
+    return this.http.delete<void>(`https://localhost:7229/api/Students/${id}`);
+  }
+
 }

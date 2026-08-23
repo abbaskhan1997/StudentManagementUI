@@ -4,5 +4,5 @@ export interface Student {
   age: number;
   email: string;
   course: string;
-  AdmissionDate: string;
+  admissionDate: string;
 }

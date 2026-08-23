@@ -1,17 +1,21 @@
 <h1>Students List</h1>
 
-<form (ngSubmit)="addStudent()">
-  <input type="text" placeholder="Name" [(ngModel)]="student.name" name="name"/>
+<form #studentForm="ngForm" (ngSubmit)="addStudent(studentForm)">
+  <input type="text" placeholder="Name" [(ngModel)]="student.name" name="name" required />
 
-  <input type="number" placeholder="Age" [(ngModel)]="student.age" name="age" />
+  <input type="number" placeholder="Age" [(ngModel)]="student.age" name="age" required />
 
-  <input type="email" placeholder="Email" [(ngModel)]="student.email" name="email" />
+  <input type="email" placeholder="Email" [(ngModel)]="student.email" name="email" required />
 
-  <input type="text" placeholder="Course" [(ngModel)]="student.course" name="course" />
+  <input type="text" placeholder="Course" [(ngModel)]="student.course" name="course" required />
 
-  <input type="date" [(ngModel)]="student.AdmissionDate" name="AdmissionDate" />
+  <input type="date" [(ngModel)]="student.admissionDate" name="admissionDate" required />
 
-  <button type="submit">Add Student</button>
+  <button type="submit" [disabled]="isEditMode">Add Student</button>
+
+  <button type="button" (click)="updateStudent(student, studentForm)" [disabled]="!isEditMode">
+    Update Student
+  </button>
 </form>
 
 <table>
@@ -23,6 +27,7 @@
       <th>Email</th>
       <th>Course</th>
       <th>Admission Date</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -34,7 +39,9 @@
         <td>{{ student.age }}</td>
         <td>{{ student.email }}</td>
         <td>{{ student.course }}</td>
-        <td>{{ student.AdmissionDate }}</td>
+        <td>{{ student.admissionDate | date: 'MM-dd-yyyy' }}</td>
+        <button (click)="editStudent(student)">Edit</button>
+        <button>Delete</button>
       </tr>
     }
   </tbody>
