@@ -17,7 +17,7 @@
     Update Student
   </button>
 </form>
-
+<input type="text" class="search-box" placeholder="Search student..." [(ngModel)]="searchText"/>
 <table>
   <thead>
     <tr>
@@ -32,7 +32,7 @@
   </thead>
 
   <tbody>
-    @for (student of students; track student.id) {
+    @for (student of getFilteredStudents(); track student.id) {
       <tr>
         <td>{{ student.id }}</td>
         <td>{{ student.name }}</td>

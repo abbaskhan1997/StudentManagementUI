@@ -11,8 +11,10 @@ import { DatePipe } from '@angular/common';
   styleUrl: './student.css',
 })
 export class Student implements OnInit {
+
   students: StudentModel[] = [];
   isEditMode: boolean = false;
+  searchText: string = '';
 
   student: StudentModel = {
     id: 0,
@@ -105,6 +107,19 @@ export class Student implements OnInit {
       this.students = response;
       this.cdr.detectChanges();
     });
+  }
+
+  getFilteredStudents(): StudentModel[] {
+    if (!this.searchText) {
+      return this.students;
+    }
+
+    const searchLower = this.searchText.toLowerCase();
+    return this.students.filter(student =>
+      student.name.toLowerCase().includes(searchLower) ||
+      student.email.toLowerCase().includes(searchLower) ||
+      student.course.toLowerCase().includes(searchLower)
+    );
   }
 
   addStudent(form: any) {
