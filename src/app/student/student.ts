@@ -34,6 +34,63 @@ export class Student implements OnInit {
     };
   }
 
+  validateForm(): boolean {
+  //  general validation
+  if (
+    !this.student.name ||
+    !this.student.age ||
+    !this.student.email ||
+    !this.student.course ||
+    !this.student.admissionDate
+  ) {
+    alert('Please fill all required fields!');
+    return false;
+  }
+    
+  // format validation
+    if (!/^[A-Za-z ]+$/.test(this.student.name)) {
+      alert('Name can contain only alphabets!');
+      return false;
+    }
+
+    if (!this.student.age) {
+      alert('Age is required!');
+      return false;
+    }
+
+    if (!/^[0-9]+$/.test(this.student.age.toString())) {
+      alert('Age can contain only numbers!');
+      return false;
+    }
+
+    if (!this.student.email) {
+      alert('Email is required!');
+      return false;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.student.email)) {
+      alert('Please enter a valid email!');
+      return false;
+    }
+
+    if (!this.student.course) {
+      alert('Course is required!');
+      return false;
+    }
+
+    if (!/^[A-Za-z0-9 ]+$/.test(this.student.course)) {
+      alert('Course can contain only letters and numbers!');
+      return false;
+    }
+
+    if (!this.student.admissionDate) {
+      alert('Admission Date is required!');
+      return false;
+    }
+
+    return true;
+  }
+
   constructor(
     private studentservice: StudentService,
     private cdr: ChangeDetectorRef,
@@ -51,8 +108,7 @@ export class Student implements OnInit {
   }
 
   addStudent(form: any) {
-    if (form.invalid) {
-      alert('Please fill all required fields!');
+    if (!this.validateForm()) {
       return;
     }
 
@@ -78,10 +134,10 @@ export class Student implements OnInit {
   }
 
   updateStudent(student: StudentModel, form: any) {
-    if (form.invalid) {
-      alert('Please fill all required fields!');
+    if (!this.validateForm()) {
       return;
     }
+
     this.studentservice.updateStudent(student).subscribe({
       next: (response: StudentModel) => {
         alert('Student updated successfully!');

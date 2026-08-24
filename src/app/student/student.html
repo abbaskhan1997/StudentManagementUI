@@ -3,11 +3,11 @@
 <form #studentForm="ngForm" (ngSubmit)="addStudent(studentForm)">
   <input type="text" placeholder="Name" [(ngModel)]="student.name" name="name" required />
 
-  <input type="number" placeholder="Age" [(ngModel)]="student.age" name="age" required />
+  <input type="number" placeholder="Age" [(ngModel)]="student.age" name="age" required  pattern="[A-Za-z ]+"/>
 
   <input type="email" placeholder="Email" [(ngModel)]="student.email" name="email" required />
 
-  <input type="text" placeholder="Course" [(ngModel)]="student.course" name="course" required />
+  <input type="text" placeholder="Course" [(ngModel)]="student.course" name="course" required  pattern="[A-Za-z0-9 ]+"/>
 
   <input type="date" [(ngModel)]="student.admissionDate" name="admissionDate" required />
 
