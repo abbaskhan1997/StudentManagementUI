@@ -40,8 +40,10 @@
         <td>{{ student.email }}</td>
         <td>{{ student.course }}</td>
         <td>{{ student.admissionDate | date: 'MM-dd-yyyy' }}</td>
-        <button (click)="editStudent(student)">Edit</button>
-        <button>Delete</button>
+        <td>
+          <button class="btn-edit" (click)="editStudent(student)">Edit</button>
+          <button class="btn-delete" (click)="deleteStudent(student.id)">Delete</button>
+        </td>
       </tr>
     }
   </tbody>

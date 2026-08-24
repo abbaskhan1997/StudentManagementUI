@@ -51,10 +51,10 @@ export class Student implements OnInit {
   }
 
   addStudent(form: any) {
-     if (form.invalid) {
-    alert('Please fill all required fields!');
-    return;
-  }
+    if (form.invalid) {
+      alert('Please fill all required fields!');
+      return;
+    }
 
     const studentToSend = {
       ...this.student,
@@ -69,11 +69,19 @@ export class Student implements OnInit {
     });
   }
 
-  updateStudent(student: StudentModel , form: any) {
-     if (form.invalid) {
-    alert('Please fill all required fields!');
-    return;
+  editStudent(student: StudentModel) {
+    this.student = {
+      ...student,
+      admissionDate: student.admissionDate.split('T')[0],
+    };
+    this.isEditMode = true;
   }
+
+  updateStudent(student: StudentModel, form: any) {
+    if (form.invalid) {
+      alert('Please fill all required fields!');
+      return;
+    }
     this.studentservice.updateStudent(student).subscribe({
       next: (response: StudentModel) => {
         alert('Student updated successfully!');
@@ -87,11 +95,17 @@ export class Student implements OnInit {
     });
   }
 
-  editStudent(student: StudentModel) {
-    this.student = {
-      ...student,
-      admissionDate: student.admissionDate.split('T')[0],
-    };
-    this.isEditMode = true;
+  deleteStudent(id: number) {
+    if (confirm('Are you sure you want to delete this student?')) {
+      this.studentservice.deleteStudent(id).subscribe({
+        next: () => {
+          alert('Student deleted successfully!');
+          this.getStudents(); // Refresh the student list after deletion
+        },
+        error: (error) => {
+          console.error('Error deleting student:', error);
+        },
+      });
+    }
   }
 }
